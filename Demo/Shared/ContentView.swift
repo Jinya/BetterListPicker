@@ -1,9 +1,6 @@
+// The MIT License (MIT)
 //
-//  ContentView.swift
-//  Shared
-//
-//  Created by Jinya on 2021/11/20.
-//
+// Copyright (c) 2021 Jinya (https://github.com/Jinya).
 
 import SwiftUI
 import BetterListPicker

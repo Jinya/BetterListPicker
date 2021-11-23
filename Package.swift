@@ -5,12 +5,17 @@ import PackageDescription
 
 let package = Package(
     name: "BetterListPicker",
-    platforms: [.iOS(.v14), .macOS(.v11), .watchOS(.v7), .tvOS(.v14)],
+    platforms: [
+        .iOS(.v14),
+        .macOS(.v11),
+        .watchOS(.v7),
+        .tvOS(.v14)
+    ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "BetterListPicker",
-            targets: ["BetterListPicker"]),
+            targets: ["BetterListPicker"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -24,6 +29,6 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "BetterListPickerTests",
-            dependencies: ["BetterListPicker"]),
+            dependencies: ["BetterListPicker"])
     ]
 )

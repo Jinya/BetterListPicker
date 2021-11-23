@@ -1,24 +1,26 @@
+// The MIT License (MIT)
 //
-//  BetterListPicker.swift
-//  BetterListPicker
-//
-//  Created by Jinya on 2021/11/20.
-//
+// Copyright (c) 2021 Jinya (https://github.com/Jinya).
 
 import SwiftUI
 
+@available(iOS 14.0, macOS 14.0, watchOS 7.0, tvOS 14.0, *)
 public protocol BetterListPickerValuable: Identifiable, Equatable {
     var titleKey: LocalizedStringKey { get }
 }
 
-public struct BetterListPicker< Value, Label, NavigationTitleLabel, PickerListSectionHeader, PickerListSectionFooter>: View where Value: BetterListPickerValuable, Label: View, NavigationTitleLabel: View, PickerListSectionHeader: View, PickerListSectionFooter: View {
-
+@available(iOS 14.0, macOS 14.0, watchOS 7.0, tvOS 14.0, *)
+public struct BetterListPicker<Value: BetterListPickerValuable,
+                               Label: View,
+                               NavigationTitleLabel: View,
+                               ListSectionHeader: View,
+                               ListSectionFooter: View>: View {
     private var selectionValue: Binding<Value>
     private let pickerValues: [Value]
 
     private let navigationTitleLabel: NavigationTitleLabel
-    private let header: PickerListSectionHeader
-    private let footer: PickerListSectionFooter
+    private let header: ListSectionHeader
+    private let footer: ListSectionFooter
 
     private let label: Label
 
@@ -63,17 +65,9 @@ public struct BetterListPicker< Value, Label, NavigationTitleLabel, PickerListSe
                     }
                 }
             } header: {
-                if let listHeader = header {
-                    listHeader
-                } else {
-                    EmptyView()
-                }
+                header
             } footer: {
-                if let listFooter = footer {
-                    listFooter
-                } else {
-                    EmptyView()
-                }
+                footer
             }
         }
     }
@@ -82,17 +76,16 @@ public struct BetterListPicker< Value, Label, NavigationTitleLabel, PickerListSe
         guard value != selectionValue.wrappedValue else { return }
         selectionValue.wrappedValue = value
     }
-
 }
 
 // MARK: - General Picker Initializer
-extension BetterListPicker {
 
+extension BetterListPicker {
     public init(_ selectionValue: Binding<Value>,
                 pickerValues: [Value],
                 navigationTitleLabel: () -> NavigationTitleLabel,
-                pickerListSectionHeader: () -> PickerListSectionHeader,
-                pickerListSectionFooter: () -> PickerListSectionFooter,
+                pickerListSectionHeader: () -> ListSectionHeader,
+                pickerListSectionFooter: () -> ListSectionFooter,
                 label: () -> Label) {
         self.selectionValue = selectionValue
         self.pickerValues = pickerValues
@@ -105,7 +98,9 @@ extension BetterListPicker {
     public init(_ selectionValue: Binding<Value>,
                 pickerValues: [Value],
                 navigationTitleLabel: () -> NavigationTitleLabel,
-                label: () -> Label) where PickerListSectionHeader == EmptyView, PickerListSectionFooter == EmptyView {
+                label: () -> Label)
+    where ListSectionHeader == EmptyView,
+    ListSectionFooter == EmptyView {
         self.selectionValue = selectionValue
         self.pickerValues = pickerValues
         self.navigationTitleLabel = navigationTitleLabel()
@@ -117,8 +112,9 @@ extension BetterListPicker {
     public init(_ selectionValue: Binding<Value>,
                 pickerValues: [Value],
                 navigationTitleLabel: () -> NavigationTitleLabel,
-                pickerListSectionHeader: () -> PickerListSectionHeader,
-                label: () -> Label) where PickerListSectionFooter == EmptyView {
+                pickerListSectionHeader: () -> ListSectionHeader,
+                label: () -> Label)
+    where ListSectionFooter == EmptyView {
         self.selectionValue = selectionValue
         self.pickerValues = pickerValues
         self.navigationTitleLabel = navigationTitleLabel()
@@ -130,8 +126,9 @@ extension BetterListPicker {
     public init(_ selectionValue: Binding<Value>,
                 pickerValues: [Value],
                 navigationTitleLabel: () -> NavigationTitleLabel,
-                pickerListSectionFooter: () -> PickerListSectionFooter,
-                label: () -> Label) where PickerListSectionHeader == EmptyView {
+                pickerListSectionFooter: () -> ListSectionFooter,
+                label: () -> Label)
+    where ListSectionHeader == EmptyView {
         self.selectionValue = selectionValue
         self.pickerValues = pickerValues
         self.navigationTitleLabel = navigationTitleLabel()
@@ -139,10 +136,10 @@ extension BetterListPicker {
         self.footer = pickerListSectionFooter()
         self.label = label()
     }
-
 }
 
 // MARK: - Picker Initializer When `Label` and `NavigationTitleLabel` are `Text`
+
 extension BetterListPicker where Label == Text, NavigationTitleLabel == Text {
 
     // MARK: - title
@@ -150,8 +147,8 @@ extension BetterListPicker where Label == Text, NavigationTitleLabel == Text {
     public init(_ title: String,
                 selectionValue: Binding<Value>,
                 pickerValues: [Value],
-                pickerListSectionHeader: () -> PickerListSectionHeader,
-                pickerListSectionFooter: () -> PickerListSectionFooter) {
+                pickerListSectionHeader: () -> ListSectionHeader,
+                pickerListSectionFooter: () -> ListSectionFooter) {
         self.label = Text(title)
         self.navigationTitleLabel = Text(title)
         self.selectionValue = selectionValue
@@ -162,7 +159,9 @@ extension BetterListPicker where Label == Text, NavigationTitleLabel == Text {
 
     public init(_ title: String,
                 selectionValue: Binding<Value>,
-                pickerValues: [Value]) where PickerListSectionHeader == EmptyView, PickerListSectionFooter == EmptyView {
+                pickerValues: [Value])
+    where ListSectionHeader == EmptyView,
+    ListSectionFooter == EmptyView {
         self.label = Text(title)
         self.navigationTitleLabel = Text(title)
         self.selectionValue = selectionValue
@@ -174,7 +173,8 @@ extension BetterListPicker where Label == Text, NavigationTitleLabel == Text {
     public init(_ title: String,
                 selectionValue: Binding<Value>,
                 pickerValues: [Value],
-                pickerListSectionHeader: () -> PickerListSectionHeader) where PickerListSectionFooter == EmptyView {
+                pickerListSectionHeader: () -> ListSectionHeader)
+    where ListSectionFooter == EmptyView {
         self.label = Text(title)
         self.navigationTitleLabel = Text(title)
         self.selectionValue = selectionValue
@@ -186,7 +186,8 @@ extension BetterListPicker where Label == Text, NavigationTitleLabel == Text {
     public init(_ title: String,
                 selectionValue: Binding<Value>,
                 pickerValues: [Value],
-                pickerListSectionFooter: () -> PickerListSectionFooter) where PickerListSectionHeader == EmptyView {
+                pickerListSectionFooter: () -> ListSectionFooter)
+    where ListSectionHeader == EmptyView {
         self.label = Text(title)
         self.navigationTitleLabel = Text(title)
         self.selectionValue = selectionValue
@@ -200,8 +201,8 @@ extension BetterListPicker where Label == Text, NavigationTitleLabel == Text {
     public init(_ titleKey: LocalizedStringKey,
                 selectionValue: Binding<Value>,
                 pickerValues: [Value],
-                pickerListSectionHeader: () -> PickerListSectionHeader,
-                pickerListSectionFooter: () -> PickerListSectionFooter) {
+                pickerListSectionHeader: () -> ListSectionHeader,
+                pickerListSectionFooter: () -> ListSectionFooter) {
         self.label = Text(titleKey)
         self.navigationTitleLabel = Text(titleKey)
         self.selectionValue = selectionValue
@@ -212,7 +213,9 @@ extension BetterListPicker where Label == Text, NavigationTitleLabel == Text {
 
     public init(_ titleKey: LocalizedStringKey,
                 selectionValue: Binding<Value>,
-                pickerValues: [Value]) where PickerListSectionHeader == EmptyView, PickerListSectionFooter == EmptyView {
+                pickerValues: [Value])
+    where ListSectionHeader == EmptyView,
+    ListSectionFooter == EmptyView {
         self.label = Text(titleKey)
         self.navigationTitleLabel = Text(titleKey)
         self.selectionValue = selectionValue
@@ -224,7 +227,8 @@ extension BetterListPicker where Label == Text, NavigationTitleLabel == Text {
     public init(_ titleKey: LocalizedStringKey,
                 selectionValue: Binding<Value>,
                 pickerValues: [Value],
-                pickerListSectionHeader: () -> PickerListSectionHeader) where PickerListSectionFooter == EmptyView {
+                pickerListSectionHeader: () -> ListSectionHeader)
+    where ListSectionFooter == EmptyView {
         self.label = Text(titleKey)
         self.navigationTitleLabel = Text(titleKey)
         self.selectionValue = selectionValue
@@ -236,8 +240,9 @@ extension BetterListPicker where Label == Text, NavigationTitleLabel == Text {
     public init(_ titleKey: LocalizedStringKey,
                 selectionValue: Binding<Value>,
                 pickerValues: [Value],
-                pickerListSectionHeader: () -> PickerListSectionHeader,
-                pickerListSectionFooter: () -> PickerListSectionFooter) where PickerListSectionHeader == EmptyView {
+                pickerListSectionHeader: () -> ListSectionHeader,
+                pickerListSectionFooter: () -> ListSectionFooter)
+    where ListSectionHeader == EmptyView {
         self.label = Text(titleKey)
         self.navigationTitleLabel = Text(titleKey)
         self.selectionValue = selectionValue
@@ -245,6 +250,4 @@ extension BetterListPicker where Label == Text, NavigationTitleLabel == Text {
         self.header = EmptyView()
         self.footer = pickerListSectionFooter()
     }
-
 }
-
