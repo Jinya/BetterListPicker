@@ -27,7 +27,9 @@ public struct BetterListPicker<Value: BetterListPickerValuable,
     public var body: some View {
         NavigationLink {
             pickerList
+            #if os(iOS) || os(watchOS)
                 .navigationBarTitleDisplayMode(.inline)
+            #endif
                 .toolbar {
                     ToolbarItem(placement: .principal) {
                         navigationTitleLabel

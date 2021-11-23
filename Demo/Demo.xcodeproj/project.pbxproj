@@ -15,7 +15,24 @@
 		3032A3752748DE4400EAE4F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3032A3622748DE4400EAE4F0 /* Assets.xcassets */; };
 		3032A3812748DE5900EAE4F0 /* BetterListPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 3032A3802748DE5900EAE4F0 /* BetterListPicker */; };
 		3032A3832748DE5F00EAE4F0 /* BetterListPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 3032A3822748DE5F00EAE4F0 /* BetterListPicker */; };
+		3047669C274CC6D4000AEBBA /* DemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3032A3602748DE4400EAE4F0 /* DemoApp.swift */; };
+		3047669D274CC6D6000AEBBA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3032A3612748DE4400EAE4F0 /* ContentView.swift */; };
+		3047669E274CC6D7000AEBBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3032A3622748DE4400EAE4F0 /* Assets.xcassets */; };
+		304766A0274CC719000AEBBA /* BetterListPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 3047669F274CC719000AEBBA /* BetterListPicker */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		304766CB274CCD21000AEBBA /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3032A3602748DE4400EAE4F0 /* DemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoApp.swift; sourceTree = "<group>"; };
@@ -25,6 +42,7 @@
 		3032A36D2748DE4400EAE4F0 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3032A36F2748DE4400EAE4F0 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		3032A37E2748DE5100EAE4F0 /* BetterListPicker */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BetterListPicker; path = ..; sourceTree = "<group>"; };
+		3047668E274CC597000AEBBA /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +62,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3047668B274CC597000AEBBA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				304766A0274CC719000AEBBA /* BetterListPicker in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -53,6 +79,7 @@
 				3032A37E2748DE5100EAE4F0 /* BetterListPicker */,
 				3032A35F2748DE4400EAE4F0 /* Shared */,
 				3032A36E2748DE4400EAE4F0 /* macOS */,
+				3047668F274CC597000AEBBA /* tvOS */,
 				3032A3682748DE4400EAE4F0 /* Products */,
 				3032A37F2748DE5900EAE4F0 /* Frameworks */,
 			);
@@ -73,6 +100,7 @@
 			children = (
 				3032A3672748DE4400EAE4F0 /* Demo.app */,
 				3032A36D2748DE4400EAE4F0 /* Demo.app */,
+				3047668E274CC597000AEBBA /* Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,6 +120,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3047668F274CC597000AEBBA /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = tvOS;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -103,6 +138,7 @@
 				3032A3642748DE4400EAE4F0 /* Frameworks */,
 				3032A3652748DE4400EAE4F0 /* Resources */,
 				3032A38527490EE500EAE4F0 /* ShellScript */,
+				304766CB274CCD21000AEBBA /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
@@ -136,6 +172,26 @@
 			productReference = 3032A36D2748DE4400EAE4F0 /* Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
+		3047668D274CC597000AEBBA /* Demo (tvOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 30476699274CC597000AEBBA /* Build configuration list for PBXNativeTarget "Demo (tvOS)" */;
+			buildPhases = (
+				3047668A274CC597000AEBBA /* Sources */,
+				3047668B274CC597000AEBBA /* Frameworks */,
+				3047668C274CC597000AEBBA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Demo (tvOS)";
+			packageProductDependencies = (
+				3047669F274CC719000AEBBA /* BetterListPicker */,
+			);
+			productName = Demo;
+			productReference = 3047668E274CC597000AEBBA /* Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -150,6 +206,9 @@
 						CreatedOnToolsVersion = 13.1;
 					};
 					3032A36C2748DE4400EAE4F0 = {
+						CreatedOnToolsVersion = 13.1;
+					};
+					3047668D274CC597000AEBBA = {
 						CreatedOnToolsVersion = 13.1;
 					};
 				};
@@ -169,6 +228,7 @@
 			targets = (
 				3032A3662748DE4400EAE4F0 /* Demo (iOS) */,
 				3032A36C2748DE4400EAE4F0 /* Demo (macOS) */,
+				3047668D274CC597000AEBBA /* Demo (tvOS) */,
 			);
 		};
 /* End PBXProject section */
@@ -187,6 +247,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3032A3752748DE4400EAE4F0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3047668C274CC597000AEBBA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3047669E274CC6D7000AEBBA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +296,15 @@
 			files = (
 				3032A3732748DE4400EAE4F0 /* ContentView.swift in Sources */,
 				3032A3712748DE4400EAE4F0 /* DemoApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3047668A274CC597000AEBBA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3047669D274CC6D6000AEBBA /* ContentView.swift in Sources */,
+				3047669C274CC6D4000AEBBA /* DemoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +533,61 @@
 			};
 			name = Release;
 		};
+		3047669A274CC597000AEBBA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.Demo;
+				PRODUCT_NAME = Demo;
+				SDKROOT = appletvos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
+			};
+			name = Debug;
+		};
+		3047669B274CC597000AEBBA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.Demo;
+				PRODUCT_NAME = Demo;
+				SDKROOT = appletvos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -486,6 +618,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		30476699274CC597000AEBBA /* Build configuration list for PBXNativeTarget "Demo (tvOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3047669A274CC597000AEBBA /* Debug */,
+				3047669B274CC597000AEBBA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -494,6 +635,10 @@
 			productName = BetterListPicker;
 		};
 		3032A3822748DE5F00EAE4F0 /* BetterListPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BetterListPicker;
+		};
+		3047669F274CC719000AEBBA /* BetterListPicker */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BetterListPicker;
 		};

@@ -1,6 +1,6 @@
 # BetterListPicker
 
-An alternative customizable list picker for built-in non customizable `Picker` when we write settings view codes.
+An alternative customizable list picker to replace built-in non customizable `Picker` when we write settings view codes.
 
 ## Demo
 
