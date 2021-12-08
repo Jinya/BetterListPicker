@@ -32,6 +32,8 @@ struct ContentView: View {
                     }
                 } header: {
                     Text("System Picker")
+                } footer: {
+                    Text("Can't customize")
                 }
                 .headerProminence(.increased)
 

@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  Demo
+
+  Created by Jinya on 2021/12/8.
+  
+*/
+
+"Favorite" = "最喜欢的";
+"System Picker" = "内置的选择器";
+"Can't customize" = "无法定制";
+"Custom Navigation Title" = "自定义导航栏标题";
+"Custom Navigation Title 2" = "自定义导航栏标题2";
+"Choose the favorite framework" = "选择最喜欢的框架";
+"And more customizable features..." = "还有更多定制选项...";

@@ -144,60 +144,6 @@ extension BetterListPicker {
 
 extension BetterListPicker where Label == Text, NavigationTitleLabel == Text {
 
-    // MARK: - title
-
-    public init(_ title: String,
-                selectionValue: Binding<Value>,
-                pickerValues: [Value],
-                pickerListSectionHeader: () -> ListSectionHeader,
-                pickerListSectionFooter: () -> ListSectionFooter) {
-        self.label = Text(title)
-        self.navigationTitleLabel = Text(title)
-        self.selectionValue = selectionValue
-        self.pickerValues = pickerValues
-        self.header = pickerListSectionHeader()
-        self.footer = pickerListSectionFooter()
-    }
-
-    public init(_ title: String,
-                selectionValue: Binding<Value>,
-                pickerValues: [Value])
-    where ListSectionHeader == EmptyView,
-    ListSectionFooter == EmptyView {
-        self.label = Text(title)
-        self.navigationTitleLabel = Text(title)
-        self.selectionValue = selectionValue
-        self.pickerValues = pickerValues
-        self.header = EmptyView()
-        self.footer = EmptyView()
-    }
-
-    public init(_ title: String,
-                selectionValue: Binding<Value>,
-                pickerValues: [Value],
-                pickerListSectionHeader: () -> ListSectionHeader)
-    where ListSectionFooter == EmptyView {
-        self.label = Text(title)
-        self.navigationTitleLabel = Text(title)
-        self.selectionValue = selectionValue
-        self.pickerValues = pickerValues
-        self.header = pickerListSectionHeader()
-        self.footer = EmptyView()
-    }
-
-    public init(_ title: String,
-                selectionValue: Binding<Value>,
-                pickerValues: [Value],
-                pickerListSectionFooter: () -> ListSectionFooter)
-    where ListSectionHeader == EmptyView {
-        self.label = Text(title)
-        self.navigationTitleLabel = Text(title)
-        self.selectionValue = selectionValue
-        self.pickerValues = pickerValues
-        self.header = EmptyView()
-        self.footer = pickerListSectionFooter()
-    }
-
     // MARK: - titleKey
 
     public init(_ titleKey: LocalizedStringKey,
@@ -247,6 +193,66 @@ extension BetterListPicker where Label == Text, NavigationTitleLabel == Text {
     where ListSectionHeader == EmptyView {
         self.label = Text(titleKey)
         self.navigationTitleLabel = Text(titleKey)
+        self.selectionValue = selectionValue
+        self.pickerValues = pickerValues
+        self.header = EmptyView()
+        self.footer = pickerListSectionFooter()
+    }
+
+    // MARK: - title
+
+    @_disfavoredOverload
+    public init<S>(_ title: S,
+                selectionValue: Binding<Value>,
+                pickerValues: [Value],
+                pickerListSectionHeader: () -> ListSectionHeader,
+                pickerListSectionFooter: () -> ListSectionFooter)
+    where S: StringProtocol {
+        self.label = Text(title)
+        self.navigationTitleLabel = Text(title)
+        self.selectionValue = selectionValue
+        self.pickerValues = pickerValues
+        self.header = pickerListSectionHeader()
+        self.footer = pickerListSectionFooter()
+    }
+
+    @_disfavoredOverload
+    public init<S>(_ title: S,
+                selectionValue: Binding<Value>,
+                pickerValues: [Value])
+    where S: StringProtocol,
+    ListSectionHeader == EmptyView,
+    ListSectionFooter == EmptyView {
+        self.label = Text(title)
+        self.navigationTitleLabel = Text(title)
+        self.selectionValue = selectionValue
+        self.pickerValues = pickerValues
+        self.header = EmptyView()
+        self.footer = EmptyView()
+    }
+
+    @_disfavoredOverload
+    public init<S>(_ title: S,
+                selectionValue: Binding<Value>,
+                pickerValues: [Value],
+                pickerListSectionHeader: () -> ListSectionHeader)
+    where S: StringProtocol, ListSectionFooter == EmptyView {
+        self.label = Text(title)
+        self.navigationTitleLabel = Text(title)
+        self.selectionValue = selectionValue
+        self.pickerValues = pickerValues
+        self.header = pickerListSectionHeader()
+        self.footer = EmptyView()
+    }
+
+    @_disfavoredOverload
+    public init<S>(_ title: S,
+                selectionValue: Binding<Value>,
+                pickerValues: [Value],
+                pickerListSectionFooter: () -> ListSectionFooter)
+    where S: StringProtocol, ListSectionHeader == EmptyView {
+        self.label = Text(title)
+        self.navigationTitleLabel = Text(title)
         self.selectionValue = selectionValue
         self.pickerValues = pickerValues
         self.header = EmptyView()
