@@ -4,37 +4,35 @@
 
 import SwiftUI
 
-@available(iOS 14.0, macOS 14.0, watchOS 7.0, tvOS 14.0, *)
-public protocol BetterListPickerValuable: Identifiable, Equatable {
-    var titleKey: LocalizedStringKey { get }
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
+public protocol BetterListPickerSelectable {
+    var title: String { get }
 }
 
-@available(iOS 14.0, macOS 14.0, watchOS 7.0, tvOS 14.0, *)
-public struct BetterListPicker<Value: BetterListPickerValuable,
-                               Label: View,
-                               NavigationTitleLabel: View,
-                               ListSectionHeader: View,
-                               ListSectionFooter: View>: View {
-    private var selectionValue: Binding<Value>
-    private let pickerValues: [Value]
+@available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
+public struct BetterListPicker<Label, Data, Header, Footer>: View
+where Label: View,
+      Data: RandomAccessCollection,
+      Header: View, Footer: View,
+      Data.Element: BetterListPickerSelectable & Identifiable & Equatable {
 
-    private let navigationTitleLabel: NavigationTitleLabel
-    private let header: ListSectionHeader
-    private let footer: ListSectionFooter
+    public typealias NavigationTitleLabel = Text
+
+    private var selection: Binding<Data.Element>
+    private let pickerData: Data
 
     private let label: Label
+    private let navigationTitleLabel: NavigationTitleLabel
+    private let header: Header
+    private let footer: Footer
 
     public var body: some View {
         NavigationLink {
             pickerList
+                .navigationTitle(navigationTitleLabel)
             #if os(iOS) || os(watchOS)
                 .navigationBarTitleDisplayMode(.inline)
             #endif
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        navigationTitleLabel
-                    }
-                }
         } label: {
             navigationLinkLabel
         }
@@ -44,24 +42,25 @@ public struct BetterListPicker<Value: BetterListPickerValuable,
         HStack {
             label
             Spacer()
-            Text(selectionValue.wrappedValue.titleKey)
+            Text(selection.wrappedValue.title)
                 .foregroundColor(.secondary)
         }
     }
 
     private var pickerList: some View {
-        List {
+        Form {
             Section {
-                ForEach(pickerValues) { value in
+                ForEach(pickerData) { element in
                     Button {
-                        updateSelection(value)
+                        changeSelection(element)
                     } label: {
                         HStack {
-                            Text(value.titleKey)
+                            Text(element.title)
                                 .foregroundColor(.primary)
                             Spacer()
-                            if selectionValue.wrappedValue == value {
+                            if selection.wrappedValue == element {
                                 Image(systemName: "checkmark")
+                                    .font(.headline)
                             }
                         }
                     }
@@ -74,188 +73,188 @@ public struct BetterListPicker<Value: BetterListPickerValuable,
         }
     }
 
-    private func updateSelection(_ value: Value) {
-        guard value != selectionValue.wrappedValue else { return }
-        selectionValue.wrappedValue = value
+    private func changeSelection(_ newValue: Data.Element) {
+        // Toggle selection
+        guard newValue != selection.wrappedValue else { return }
+        selection.wrappedValue = newValue
     }
 }
 
 // MARK: - General Picker Initializer
 
 extension BetterListPicker {
-    public init(_ selectionValue: Binding<Value>,
-                pickerValues: [Value],
+    public init(_ selection: Binding<Data.Element>,
+                pickerData: Data,
                 navigationTitleLabel: () -> NavigationTitleLabel,
-                pickerListSectionHeader: () -> ListSectionHeader,
-                pickerListSectionFooter: () -> ListSectionFooter,
+                header: () -> Header,
+                footer: () -> Footer,
                 label: () -> Label) {
-        self.selectionValue = selectionValue
-        self.pickerValues = pickerValues
+        self.selection = selection
+        self.pickerData = pickerData
         self.navigationTitleLabel = navigationTitleLabel()
-        self.header = pickerListSectionHeader()
-        self.footer = pickerListSectionFooter()
+        self.header = header()
+        self.footer = footer()
         self.label = label()
     }
 
-    public init(_ selectionValue: Binding<Value>,
-                pickerValues: [Value],
+    public init(_ selection: Binding<Data.Element>,
+                pickerData: Data,
                 navigationTitleLabel: () -> NavigationTitleLabel,
                 label: () -> Label)
-    where ListSectionHeader == EmptyView,
-    ListSectionFooter == EmptyView {
-        self.selectionValue = selectionValue
-        self.pickerValues = pickerValues
+    where Header == EmptyView,
+    Footer == EmptyView {
+        self.selection = selection
+        self.pickerData = pickerData
         self.navigationTitleLabel = navigationTitleLabel()
         self.header = EmptyView()
         self.footer = EmptyView()
         self.label = label()
     }
 
-    public init(_ selectionValue: Binding<Value>,
-                pickerValues: [Value],
+    public init(_ selection: Binding<Data.Element>,
+                pickerData: Data,
                 navigationTitleLabel: () -> NavigationTitleLabel,
-                pickerListSectionHeader: () -> ListSectionHeader,
+                header: () -> Header,
                 label: () -> Label)
-    where ListSectionFooter == EmptyView {
-        self.selectionValue = selectionValue
-        self.pickerValues = pickerValues
+    where Footer == EmptyView {
+        self.selection = selection
+        self.pickerData = pickerData
         self.navigationTitleLabel = navigationTitleLabel()
-        self.header = pickerListSectionHeader()
+        self.header = header()
         self.footer = EmptyView()
         self.label = label()
     }
 
-    public init(_ selectionValue: Binding<Value>,
-                pickerValues: [Value],
+    public init(_ selection: Binding<Data.Element>,
+                pickerData: Data,
                 navigationTitleLabel: () -> NavigationTitleLabel,
-                pickerListSectionFooter: () -> ListSectionFooter,
+                footer: () -> Footer,
                 label: () -> Label)
-    where ListSectionHeader == EmptyView {
-        self.selectionValue = selectionValue
-        self.pickerValues = pickerValues
+    where Header == EmptyView {
+        self.selection = selection
+        self.pickerData = pickerData
         self.navigationTitleLabel = navigationTitleLabel()
         self.header = EmptyView()
-        self.footer = pickerListSectionFooter()
+        self.footer = footer()
         self.label = label()
     }
 }
 
-// MARK: - Picker Initializer When `Label` and `NavigationTitleLabel` are `Text`
+// MARK: - Picker Initializer When `Label` is `Text`
 
-extension BetterListPicker where Label == Text, NavigationTitleLabel == Text {
+extension BetterListPicker where Label == Text {
 
     // MARK: - titleKey
 
     public init(_ titleKey: LocalizedStringKey,
-                selectionValue: Binding<Value>,
-                pickerValues: [Value],
-                pickerListSectionHeader: () -> ListSectionHeader,
-                pickerListSectionFooter: () -> ListSectionFooter) {
+                selection: Binding<Data.Element>,
+                pickerData: Data,
+                header: () -> Header,
+                footer: () -> Footer) {
         self.label = Text(titleKey)
         self.navigationTitleLabel = Text(titleKey)
-        self.selectionValue = selectionValue
-        self.pickerValues = pickerValues
-        self.header = pickerListSectionHeader()
-        self.footer = pickerListSectionFooter()
+        self.selection = selection
+        self.pickerData = pickerData
+        self.header = header()
+        self.footer = footer()
     }
 
     public init(_ titleKey: LocalizedStringKey,
-                selectionValue: Binding<Value>,
-                pickerValues: [Value])
-    where ListSectionHeader == EmptyView,
-    ListSectionFooter == EmptyView {
+                selection: Binding<Data.Element>,
+                pickerData: Data)
+    where Header == EmptyView, Footer == EmptyView {
         self.label = Text(titleKey)
         self.navigationTitleLabel = Text(titleKey)
-        self.selectionValue = selectionValue
-        self.pickerValues = pickerValues
+        self.selection = selection
+        self.pickerData = pickerData
         self.header = EmptyView()
         self.footer = EmptyView()
     }
 
     public init(_ titleKey: LocalizedStringKey,
-                selectionValue: Binding<Value>,
-                pickerValues: [Value],
-                pickerListSectionHeader: () -> ListSectionHeader)
-    where ListSectionFooter == EmptyView {
+                selection: Binding<Data.Element>,
+                pickerData: Data,
+                header: () -> Header)
+    where Footer == EmptyView {
         self.label = Text(titleKey)
         self.navigationTitleLabel = Text(titleKey)
-        self.selectionValue = selectionValue
-        self.pickerValues = pickerValues
-        self.header = pickerListSectionHeader()
+        self.selection = selection
+        self.pickerData = pickerData
+        self.header = header()
         self.footer = EmptyView()
     }
 
     public init(_ titleKey: LocalizedStringKey,
-                selectionValue: Binding<Value>,
-                pickerValues: [Value],
-                pickerListSectionHeader: () -> ListSectionHeader,
-                pickerListSectionFooter: () -> ListSectionFooter)
-    where ListSectionHeader == EmptyView {
+                selection: Binding<Data.Element>,
+                pickerData: Data,
+                header: () -> Header,
+                footer: () -> Footer)
+    where Header == EmptyView {
         self.label = Text(titleKey)
         self.navigationTitleLabel = Text(titleKey)
-        self.selectionValue = selectionValue
-        self.pickerValues = pickerValues
+        self.selection = selection
+        self.pickerData = pickerData
         self.header = EmptyView()
-        self.footer = pickerListSectionFooter()
+        self.footer = footer()
     }
 
     // MARK: - title
 
     @_disfavoredOverload
     public init<S>(_ title: S,
-                selectionValue: Binding<Value>,
-                pickerValues: [Value],
-                pickerListSectionHeader: () -> ListSectionHeader,
-                pickerListSectionFooter: () -> ListSectionFooter)
+                selection: Binding<Data.Element>,
+                pickerData: Data,
+                header: () -> Header,
+                footer: () -> Footer)
     where S: StringProtocol {
         self.label = Text(title)
         self.navigationTitleLabel = Text(title)
-        self.selectionValue = selectionValue
-        self.pickerValues = pickerValues
-        self.header = pickerListSectionHeader()
-        self.footer = pickerListSectionFooter()
+        self.selection = selection
+        self.pickerData = pickerData
+        self.header = header()
+        self.footer = footer()
     }
 
     @_disfavoredOverload
     public init<S>(_ title: S,
-                selectionValue: Binding<Value>,
-                pickerValues: [Value])
+                selection: Binding<Data.Element>,
+                pickerData: Data)
     where S: StringProtocol,
-    ListSectionHeader == EmptyView,
-    ListSectionFooter == EmptyView {
+    Header == EmptyView,
+    Footer == EmptyView {
         self.label = Text(title)
         self.navigationTitleLabel = Text(title)
-        self.selectionValue = selectionValue
-        self.pickerValues = pickerValues
+        self.selection = selection
+        self.pickerData = pickerData
         self.header = EmptyView()
         self.footer = EmptyView()
     }
 
     @_disfavoredOverload
     public init<S>(_ title: S,
-                selectionValue: Binding<Value>,
-                pickerValues: [Value],
-                pickerListSectionHeader: () -> ListSectionHeader)
-    where S: StringProtocol, ListSectionFooter == EmptyView {
+                selection: Binding<Data.Element>,
+                pickerData: Data,
+                header: () -> Header)
+    where S: StringProtocol, Footer == EmptyView {
         self.label = Text(title)
         self.navigationTitleLabel = Text(title)
-        self.selectionValue = selectionValue
-        self.pickerValues = pickerValues
-        self.header = pickerListSectionHeader()
+        self.selection = selection
+        self.pickerData = pickerData
+        self.header = header()
         self.footer = EmptyView()
     }
 
     @_disfavoredOverload
     public init<S>(_ title: S,
-                selectionValue: Binding<Value>,
-                pickerValues: [Value],
-                pickerListSectionFooter: () -> ListSectionFooter)
-    where S: StringProtocol, ListSectionHeader == EmptyView {
+                selection: Binding<Data.Element>,
+                pickerData: Data,
+                footer: () -> Footer)
+    where S: StringProtocol, Header == EmptyView {
         self.label = Text(title)
         self.navigationTitleLabel = Text(title)
-        self.selectionValue = selectionValue
-        self.pickerValues = pickerValues
+        self.selection = selection
+        self.pickerData = pickerData
         self.header = EmptyView()
-        self.footer = pickerListSectionFooter()
+        self.footer = footer()
     }
 }

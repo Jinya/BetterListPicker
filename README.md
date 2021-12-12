@@ -8,7 +8,7 @@ An alternative customizable list picker to replace built-in non customizable `Pi
 
 ## Requirements
 
-iOS 14.0+, macOS 11.0+, watchOS 7.0+, tvOS 14.0+
+iOS 14.0+, macOS 11.0+, tvOS 14.0+, watchOS 7.0+
 
 ## Installation
 
@@ -18,72 +18,37 @@ iOS 14.0+, macOS 11.0+, watchOS 7.0+, tvOS 14.0+
 - Add `https://github.com/Jinya/BetterListPicker.git`
 - Select "Exact Version" (recommend using the latest exact version)
 
-## How to Use
+## Sample Code
 
-Sample codes, see more in Demo App...
+See more in Demo App...
+
 ```swift
 import SwiftUI
 import BetterListPicker
 
 enum Framework: String, CaseIterable {
-    case appkit = "AppKit"
-    case uikit = "UIKit"
-    case swiftui = "SwiftUI"
+    case appKit = "AppKit"
+    case uiKit = "UIKit"
+    case swiftUI = "SwiftUI"
+    case reactNative = "React Native"
 }
 
-extension Framework: BetterListPickerValuable {
-    var id: String { self.rawValue }
-    var titleKey: LocalizedStringKey { LocalizedStringKey(self.rawValue) }
+extension Framework: BetterListPickerSelectable, Identifiable {
+    var id: String { rawValue }
+    var title: String { rawValue }
 }
 
 struct ContentView: View {
-
-    @State var favorite: Framework = .swiftui
+    @State private var favorite: Framework = .swiftUI
 
     var body: some View {
         NavigationView {
             List {
-                Section {
-                    BetterListPicker("Favorite",
-                                     selectionValue: $favorite,
-                                     pickerValues: Framework.allCases)
-
-                    BetterListPicker("Favorite",
-                                     selectionValue: $favorite,
-                                     pickerValues: Framework.allCases,
-                                     pickerListSectionHeader: { Text("Header") },
-                                     pickerListSectionFooter: { EmptyView() })
-
-                    BetterListPicker($favorite,
-                                     pickerValues: Framework.allCases) {
-                        Text("Custom Navigation Title")
-                    } pickerListSectionFooter: {
-                        Text("Footer")
-                    } label: {
-                        Label("Favorite", systemImage: "star.circle")
-                    }
-
-                    BetterListPicker($favorite,
-                                     pickerValues: Framework.allCases) {
-                        Text("Custom Navigation Title 2")
-                    } pickerListSectionHeader: {
-                        Text("Header")
-                    } pickerListSectionFooter: {
-                        Text("Footer")
-                    } label: {
-                        VStack(alignment: .leading) {
-                            Text("Favorite")
-                            Text("Choose the favorite framework")
-                                .font(.footnote)
-                        }
-                    }
-                } header: {
-                    Text("BetterListPicker")
-                } footer: {
-                    Text("And more customizable features...")
-                }
+                BetterListPicker("Favorite Framework",
+                                 selection: $favorite,
+                                 pickerData: Framework.allCases)
             }
-            .navigationTitle("Picker Demo")
+            .navigationTitle("Demo")
         }
     }
 }

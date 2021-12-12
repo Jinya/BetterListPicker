@@ -43,11 +43,11 @@
 		3032A3602748DE4400EAE4F0 /* DemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoApp.swift; sourceTree = "<group>"; };
 		3032A3612748DE4400EAE4F0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3032A3622748DE4400EAE4F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3032A3672748DE4400EAE4F0 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3032A3672748DE4400EAE4F0 /* Picker Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Picker Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3032A36D2748DE4400EAE4F0 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3032A36F2748DE4400EAE4F0 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		3032A37E2748DE5100EAE4F0 /* BetterListPicker */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BetterListPicker; path = ..; sourceTree = "<group>"; };
-		3047668E274CC597000AEBBA /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3047668E274CC597000AEBBA /* Picker Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Picker Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,9 +104,9 @@
 		3032A3682748DE4400EAE4F0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3032A3672748DE4400EAE4F0 /* Demo.app */,
+				3032A3672748DE4400EAE4F0 /* Picker Demo.app */,
 				3032A36D2748DE4400EAE4F0 /* Demo.app */,
-				3047668E274CC597000AEBBA /* Demo.app */,
+				3047668E274CC597000AEBBA /* Picker Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -155,7 +155,7 @@
 				3032A3802748DE5900EAE4F0 /* BetterListPicker */,
 			);
 			productName = "Demo (iOS)";
-			productReference = 3032A3672748DE4400EAE4F0 /* Demo.app */;
+			productReference = 3032A3672748DE4400EAE4F0 /* Picker Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
 		3032A36C2748DE4400EAE4F0 /* Demo (macOS) */ = {
@@ -195,7 +195,7 @@
 				3047669F274CC719000AEBBA /* BetterListPicker */,
 			);
 			productName = Demo;
-			productReference = 3047668E274CC597000AEBBA /* Demo.app */;
+			productReference = 3047668E274CC597000AEBBA /* Picker Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -464,8 +464,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.Demo;
-				PRODUCT_NAME = Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.BetterListPicker.Demo;
+				PRODUCT_NAME = "Picker Demo";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -493,8 +493,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.Demo;
-				PRODUCT_NAME = Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.BetterListPicker.Demo;
+				PRODUCT_NAME = "Picker Demo";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -521,7 +521,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.BetterListPicker.Demo;
 				PRODUCT_NAME = Demo;
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -547,7 +547,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.BetterListPicker.Demo;
 				PRODUCT_NAME = Demo;
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -572,8 +572,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.Demo;
-				PRODUCT_NAME = Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.BetterListPicker.Demo;
+				PRODUCT_NAME = "Picker Demo";
 				SDKROOT = appletvos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -599,8 +599,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.Demo;
-				PRODUCT_NAME = Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.BetterListPicker.Demo;
+				PRODUCT_NAME = "Picker Demo";
 				SDKROOT = appletvos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

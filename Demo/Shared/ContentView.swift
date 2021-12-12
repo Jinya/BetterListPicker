@@ -6,81 +6,93 @@ import SwiftUI
 import BetterListPicker
 
 enum Framework: String, CaseIterable {
-    case appkit = "AppKit"
-    case uikit = "UIKit"
-    case swiftui = "SwiftUI"
+    case appKit = "AppKit"
+    case uiKit = "UIKit"
+    case swiftUI = "SwiftUI"
+    case reactNative = "React Native"
 }
 
-extension Framework: BetterListPickerValuable {
-    var id: String { self.rawValue }
-    var titleKey: LocalizedStringKey { LocalizedStringKey(self.rawValue) }
+extension Framework: BetterListPickerSelectable, Identifiable {
+    var id: String { rawValue }
+    var title: String { rawValue }
 }
 
 struct ContentView: View {
-
-    @State var favorite: Framework = .swiftui
+    @State private var favorite: Framework = .swiftUI
 
     var body: some View {
         NavigationView {
             List {
-                // System Picker
-                Section {
-                    Picker("Favorite", selection: $favorite) {
-                        ForEach(Framework.allCases, id: \.self) { framework in
-                            Text(framework.rawValue)
-                        }
-                    }
-                } header: {
-                    Text("System Picker")
-                } footer: {
-                    Text("Can't customize")
-                }
-                .headerProminence(.increased)
-
-                // BetterListPicker
-                Section {
-                    BetterListPicker("Favorite",
-                                     selectionValue: $favorite,
-                                     pickerValues: Framework.allCases)
-
-                    BetterListPicker("Favorite",
-                                     selectionValue: $favorite,
-                                     pickerValues: Framework.allCases,
-                                     pickerListSectionHeader: { Text("Header") },
-                                     pickerListSectionFooter: { EmptyView() })
-
-                    BetterListPicker($favorite,
-                                     pickerValues: Framework.allCases) {
-                        Text("Custom Navigation Title")
-                    } pickerListSectionFooter: {
-                        Text("Footer")
-                    } label: {
-                        Label("Favorite", systemImage: "star.circle")
-                    }
-
-                    BetterListPicker($favorite,
-                                     pickerValues: Framework.allCases) {
-                        Text("Custom Navigation Title 2")
-                    } pickerListSectionHeader: {
-                        Text("Header")
-                    } pickerListSectionFooter: {
-                        Text("Footer")
-                    } label: {
-                        VStack(alignment: .leading) {
-                            Text("Favorite")
-                            Text("Choose the favorite framework")
-                                .font(.footnote)
-                        }
-                    }
-                } header: {
-                    Text("BetterListPicker")
-                } footer: {
-                    Text("And more customizable features...")
-                }
-                .headerProminence(.increased)
+                betterListPickerSection()
+                systemListPickerSection()
             }
             .navigationTitle("Picker Demo")
         }
+        #if os(iOS)
+        .navigationViewStyle(.stack)
+        #endif
+    }
+}
+
+extension ContentView {
+    @ViewBuilder
+    private func betterListPickerSection() -> some View {
+        Section {
+            BetterListPicker("Favorite Framework",
+                             selection: $favorite,
+                             pickerData: Framework.allCases)
+
+            BetterListPicker("Favorite Framework",
+                             selection: $favorite,
+                             pickerData: Framework.allCases,
+                             header: { Text("Header") },
+                             footer: { EmptyView() })
+
+            BetterListPicker($favorite,
+                             pickerData: Framework.allCases) {
+                Text("NavTitle1")
+            } footer: {
+                Text("Footer")
+            } label: {
+                Label("Favorite Framework", systemImage: "star.circle")
+            }
+
+            BetterListPicker($favorite,
+                             pickerData: Framework.allCases) {
+                Text("NavTitle2")
+            } header: {
+                Text("Header")
+            } footer: {
+                Text("Footer")
+            } label: {
+                VStack(alignment: .leading) {
+                    Text("Favorite Framework")
+                    Text("Choose the favorite framework")
+                        .font(.footnote)
+                }
+            }
+        } header: {
+            Text("BetterListPicker")
+        } footer: {
+            Text("And more customizable features...")
+        }
+        .headerProminence(.increased)
+    }
+
+    @ViewBuilder
+    private func systemListPickerSection() -> some View {
+        Section {
+            Picker("Favorite Framework", selection: $favorite) {
+                ForEach(Framework.allCases, id: \.self) { framework in
+                    Text(framework.title)
+                }
+            }
+        } header: {
+            Text("SwiftUI Built-In Picker")
+        } footer: {
+            Text("Unable to customzie picker list style to `.insetGroupStyle`")
+        }
+        .headerProminence(.increased)
     }
 }
 
